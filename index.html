@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mixtape Meetups</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mixtape Meetups">
+<meta property="og:description" content="A structured, peer-led, song-based recovery format. Nobody has built one. We are.">
+<meta name="twitter:card" content="summary_large">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#120C1E; --paper:#F3F0E6; --bone:#EDEAE2;
+    --hot:#B49CE8; --volt:#F0D08A; --smoke:#918A9C;
+    --hair:rgba(237,234,226,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;overflow:hidden;background:#000}
+  body{font-family:"Archivo",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;color:var(--bone);
+    display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+
+  .stage{position:relative;width:min(100vw,440px);height:min(100svh,940px);
+    background:var(--void);overflow:hidden}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:20;opacity:.15;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .slide{position:absolute;inset:0;padding:54px 24px 46px;display:none;
+    flex-direction:column;justify-content:center;overflow:hidden}
+  .slide.on{display:flex;animation:cut .28s steps(3) both}
+  @keyframes cut{from{opacity:0}to{opacity:1}}
+
+  .eyebrow{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:11.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--hot);margin-bottom:14px;display:block}
+  .eyebrow::before{content:"// ";color:#F0D08A}
+  h2{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+    line-height:.94;font-size:clamp(30px,8.6vw,38px)}
+  h2.sm{font-size:clamp(25px,7vw,31px)}
+  h2 mark{background:none;color:var(--hot)}
+  p{font-size:14.5px;line-height:1.5}
+  .body{margin-top:16px}
+  .body p+p{margin-top:10px}
+  .pull{margin-top:18px;background:var(--paper);color:var(--void);padding:14px 15px;
+    transform:rotate(-.7deg);box-shadow:4px 6px 0 rgba(0,0,0,.55);
+    font-weight:600;font-size:14.5px;line-height:1.32}
+  .pull.alt{transform:rotate(.8deg);background:#2E1B4F;color:var(--paper)}
+  .cite{margin-top:16px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:12.5px;
+    color:var(--smoke);line-height:1.7;letter-spacing:.03em}
+
+  /* title */
+  .title{justify-content:space-between;padding:54px 24px 42px}
+  .toprow{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:9.5px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--volt);line-height:1.8}
+  h1{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;line-height:.94;
+    font-size:clamp(58px,17vw,76px)}
+  h1{color:transparent;-webkit-text-stroke:2px var(--bone)}
+  h1 em{font-style:normal;-webkit-text-stroke:0;color:var(--hot);display:block}
+  .deck{margin-top:16px;font-size:17px;font-weight:600;line-height:1.28}
+  .strap{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--smoke);line-height:1.9}
+  .tape{position:absolute;background:var(--volt);z-index:3}
+  .t1{width:120px;height:20px;top:36px;left:58%;transform:rotate(-5deg)}
+  .t2{width:78px;height:17px;bottom:120px;right:-16px;transform:rotate(8deg);background:var(--hot)}
+
+  /* stacked cards */
+  .cards{display:flex;flex-direction:column;gap:5px;margin-top:16px}
+  .cards>div{background:var(--paper);color:var(--void);padding:12px 14px;
+    box-shadow:3px 5px 0 rgba(0,0,0,.5)}
+  .cards>div:nth-child(even){transform:rotate(.5deg)}
+  .cards>div:nth-child(odd){transform:rotate(-.4deg)}
+  .cards h3{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:16px;
+    line-height:1;margin-bottom:5px}
+  .cards p{font-size:13.6px;line-height:1.42;color:#22201C}
+  .cards ul{list-style:none;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:11.5px;
+    line-height:1.85;color:#22201C}
+  .cards ul li::before{content:"— ";color:var(--hot)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:16px}
+  .row2>div{background:var(--paper);color:var(--void);padding:11px 12px;box-shadow:3px 5px 0 rgba(0,0,0,.5)}
+  .row2 h3{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:14px;line-height:1;margin-bottom:4px}
+  .row2 p{font-size:13.6px;line-height:1.42;color:#22201C}
+
+  /* stat */
+  .hero-n{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-size:78px;line-height:.84;color:var(--volt);margin-top:6px}
+  .hero-l{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:13.5px;line-height:1.7;color:var(--smoke);
+    text-transform:uppercase;letter-spacing:.05em;margin-top:10px}
+  .duo{display:flex;gap:22px;margin-top:18px}
+  .duo b{display:block;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-size:34px;line-height:.9;color:var(--volt)}
+  .duo span{display:block;margin-top:6px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:12.5px;
+    line-height:1.55;color:var(--smoke);text-transform:uppercase;letter-spacing:.04em}
+
+  /* steps */
+  .steps{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .steps li{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline}
+  .steps .lab{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:15px;
+    color:var(--volt);line-height:1.12}
+  .steps p{font-size:14px;line-height:1.45}
+
+  /* matrix */
+  .mx{display:grid;grid-template-columns:52px 1fr 1fr;gap:4px;margin-top:16px}
+  .mx .hd,.mx .rw{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:11px;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--smoke);line-height:1.3}
+  .mx .hd{align-self:end;padding-bottom:4px}
+  .mx .rw{align-self:center}
+  .mx .cell{background:var(--paper);color:var(--void);padding:10px 10px;box-shadow:3px 4px 0 rgba(0,0,0,.5)}
+  .mx .cell h4{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:13.5px;
+    line-height:1;margin-bottom:4px}
+  .mx .cell p{font-size:12.4px;line-height:1.36;color:#2C2A26}
+  .mx .empty{background:var(--volt)}
+
+  /* chain */
+  .chain{display:flex;flex-direction:column;gap:5px;margin-top:16px}
+  .chain>div{background:var(--paper);color:var(--void);padding:11px 13px;
+    box-shadow:3px 5px 0 rgba(0,0,0,.5);display:grid;grid-template-columns:74px 1fr;
+    gap:10px;align-items:center}
+  .chain>div.ghost{background:none;color:var(--bone);border:1.5px dashed var(--hair);box-shadow:none}
+  .chain .tag{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:8.5px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--hot)}
+  .chain .ghost .tag{color:var(--smoke)}
+  .chain h4{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:15px;line-height:1}
+  .chain small{display:block;margin-top:3px;font-size:11px;line-height:1.3;color:#3A3833}
+  .chain .ghost small{color:var(--smoke)}
+
+  /* close */
+  .contact{margin-top:26px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:10px;line-height:1.85;
+    color:var(--smoke);text-transform:uppercase;letter-spacing:.05em}
+  .contact b{color:var(--volt);font-weight:700}
+  .disc{margin-top:20px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:7.6px;line-height:1.65;
+    color:var(--smoke);opacity:.7}
+
+  /* chrome */
+  .ticks{position:absolute;top:0;left:0;right:0;display:flex;gap:3px;padding:10px 12px;z-index:22}
+  .ticks i{flex:1;height:3px;background:rgba(237,234,226,.16)}
+  .ticks i.done{background:var(--hot)}
+  .num{position:absolute;right:14px;bottom:16px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;
+    font-weight:700;font-size:9.5px;color:var(--smoke);letter-spacing:.1em;z-index:22}
+  .hint{position:absolute;left:14px;bottom:16px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;
+    font-size:9px;color:var(--smoke);opacity:.45;z-index:22}
+  .zone{position:absolute;top:0;bottom:0;width:34%;z-index:30;cursor:pointer}
+  .zone.l{left:0}.zone.r{right:0}
+  @media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
+
+  /* iOS */
+  html,body{overscroll-behavior:none}
+  body{touch-action:manipulation}
+  .stage{-webkit-user-select:none;user-select:none}
+  .slide{padding-top:calc(54px + env(safe-area-inset-top));
+         padding-bottom:calc(46px + env(safe-area-inset-bottom))}
+  .slide.title{padding-bottom:calc(42px + env(safe-area-inset-bottom))}
+  .ticks{padding-top:calc(10px + env(safe-area-inset-top))}
+  .num,.hint{bottom:calc(16px + env(safe-area-inset-bottom))}
+
+  @media (min-width:900px) and (orientation:landscape){
+    .stage{width:min(96vw,1180px);height:min(90svh,664px);aspect-ratio:16/9}
+    .slide{padding:64px 78px 60px;justify-content:center}
+    .slide.title{padding:58px 78px 52px}
+    h1{font-size:126px}
+    .deck{font-size:28px;max-width:16em;margin-top:22px}
+    .cass{max-width:250px !important}
+    h2{font-size:54px;max-width:15em}
+    h2.sm{font-size:44px}
+    .eyebrow{font-size:12.5px;margin-bottom:18px}
+    .body p,p{font-size:18px}
+    .cards{flex-direction:row;gap:8px;margin-top:22px}
+    .cards>div{flex:1;padding:18px 20px}
+    .cards h3{font-size:21px;margin-bottom:8px}
+    .cards p{font-size:15px;line-height:1.44}
+    .cards ul{font-size:14px}
+    .row2{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:22px}
+    .row2>div{padding:18px 20px}
+    .row2 h3{font-size:20px}
+    .row2 p{font-size:14.5px;line-height:1.44}
+    .pull{font-size:22px;padding:22px 26px;max-width:32em;margin-top:24px}
+    .cite{font-size:13.5px;margin-top:20px;max-width:48em}
+    .hero-n{font-size:132px}
+    .hero-l{font-size:15px;max-width:34em}
+    .duo{gap:56px;margin-top:24px}
+    .duo b{font-size:48px}
+    .duo span{font-size:13px}
+    .steps{margin-top:22px;gap:16px}
+    .steps li{grid-template-columns:210px 1fr;gap:20px}
+    .steps .lab{font-size:22px}
+    .steps p{font-size:17px}
+    .mx{grid-template-columns:120px 1fr 1fr;gap:6px;margin-top:22px}
+    .mx .hd,.mx .rw{font-size:12.5px}
+    .mx .cell{padding:16px 18px}
+    .mx .cell h4{font-size:19px}
+    .mx .cell p{font-size:14.5px;line-height:1.4}
+    .slide.title{flex-direction:row;align-items:center;justify-content:space-between;gap:56px}
+    .slide.title>div:first-child{display:none}
+    .slide.title .strap{display:none}
+    .cass{max-width:320px !important;flex:0 0 auto}
+    .deck{max-width:13em}
+    .ticks{padding:12px 16px}
+    .num,.hint{font-size:12px;bottom:18px}
+    .num{right:20px} .hint{left:20px}
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="ticks" id="ticks"></div>
+
+  <!-- 01 -->
+  <section class="slide title on">
+    <div></div>
+    
+    
+    <div>
+      <h1>Mixtape<em>Meetups</em></h1>
+      <p class="deck">A structured, peer-led, song-based recovery format. Nobody has built one. We are.</p>
+    </div>
+    <svg class="cass" viewBox="112 8 198 124" aria-hidden="true" style="width:100%;max-width:210px;display:block">
+      <rect x="116" y="14" width="188" height="112" rx="5" fill="none" stroke="var(--bone)" stroke-width="2.2"/>
+      <rect x="130" y="26" width="160" height="42" fill="var(--paper)"/>
+      <line x1="140" y1="40" x2="252" y2="40" stroke="var(--void)" stroke-width="2.4"/>
+      <line x1="140" y1="52" x2="214" y2="52" stroke="var(--void)" stroke-width="2.4" opacity=".55"/>
+      <circle cx="168" cy="94" r="19" fill="none" stroke="#F0D08A" stroke-width="1.8"/>
+      <circle cx="252" cy="94" r="19" fill="none" stroke="#F0D08A" stroke-width="1.8"/>
+      <circle cx="168" cy="94" r="7" fill="var(--hot)"/>
+      <circle cx="252" cy="94" r="7" fill="var(--hot)"/>
+      <line x1="187" y1="94" x2="233" y2="94" stroke="var(--bone)" stroke-width="2"/>
+      <rect x="196" y="112" width="28" height="6" rx="1" fill="none" stroke="var(--bone)" stroke-width="1.4"/>
+    </svg>
+    <div class="strap"></div>
+  </section>
+
+  <!-- 02 -->
+  <section class="slide">
+    <span class="eyebrow">The premise</span>
+    <h2>From optimization <mark>to feeling.</mark></h2>
+    <div class="body">
+      <p>A world of noise. Dopamine loops. Too much coming at everyone at once. People cannot settle, and another escape does not fix it. What fixes it is a practice you come back to, again and again.</p>
+      <p>Recovery is the only field built entirely around coming back. Same room, same people, every week, for years.</p>
+    </div>
+    <div class="pull">The practice already exists. Nobody has put music at the center of it.</div>
+  </section>
+
+  <!-- 03 -->
+  <section class="slide">
+    <span class="eyebrow">01 · Mechanism</span>
+    <h2>Addiction acts on the reward pathway. <mark>So does music.</mark></h2>
+    <div class="cards">
+      <div><h3>Same wiring</h3><p>Music changes activity in the brain's reward system. The same system a drug acts on.</p></div>
+      <div><h3>The blocker</h3><p>Music runs on the body's own opioid system. Block those receptors with naltrexone and people rate their own favorite songs as less pleasurable. Their neutral music barely changes.</p></div>
+      <div><h3>Their song</h3><p>Scans caught dopamine releasing at the exact moment a song gave someone chills. Their own favorite song, not one picked for them.</p></div>
+    </div>
+    <div class="pull">Block the opioid system and the pleasure measurably drops. That is not a metaphor. That is pharmacology.</div>
+    <div class="cite">The dopamine loop is the problem everyone names. It is also the lever.<br>Mallik, Chanda and Levitin, Scientific Reports, 2017 · Salimpoor et al., Nature Neuroscience, 2011</div>
+  </section>
+
+  <!-- 03 -->
+  <section class="slide">
+    <span class="eyebrow">02 · Evidence</span>
+    <h2>Not experimental.</h2>
+    <div class="hero-n">0.41</div>
+    <div class="hero-l">Measured drop in craving, across 3 studies and 254 people. Moderate certainty.</div>
+    <div class="duo">
+      <div><b>+</b><span>More motivation to get help. 5 studies, 408 people.</span></div>
+      <div><b>1–3</b><span>Months of it beats a one-off session.</span></div>
+    </div>
+    <div class="cite">Ghetti et al., Cochrane Database of Systematic Reviews, 2022. Reported as a standardized mean difference. Same review found no clear effect on depression, anxiety or retention.</div>
+  </section>
+  <!-- 05 -->
+  <section class="slide">
+    <span class="eyebrow">03 · The landscape</span>
+    <h2 class="sm">Two variables. <mark>One empty cell.</mark></h2>
+    <div class="mx">
+      <div></div>
+      <div class="hd">Music absent</div>
+      <div class="hd">Music central</div>
+      <div class="rw">Clinician<br>led</div>
+      <div class="cell"><h4>Treatment</h4><p>Rehab and outpatient care. Music is entertainment there, not the method.</p></div>
+      <div class="cell"><h4>Music therapy</h4><p>Nordoff-Robbins, Music Mends Minds. Still run by a trained therapist.</p></div>
+      <div class="rw">Peer<br>led</div>
+      <div class="cell"><h4>Fellowship</h4><p>12-step, SMART, Recovery Dharma. Movie Meetups sits here.</p></div>
+      <div class="cell empty"><h4>Peer-led, music-first</h4><p>Empty. No curriculum, no training, nothing sold.</p></div>
+    </div>
+    <div class="cite">We checked twenty five organizations. The empty box stayed empty. That is not a hole in the research. It is a hole in the market.</div>
+  </section>
+
+  <!-- 06 -->
+  <section class="slide">
+    <span class="eyebrow">04 · The hour</span>
+    <h2>What a peer-led music hour does.</h2>
+    <ul class="steps">
+      <li><span class="lab">Everyone listens</span><p>The song plays at the top of the meeting. Same song, same room, same hour every week.</p></li>
+      <li><span class="lab">A memory arrives</span><p>It gets there before the defense does.</p></li>
+      <li><span class="lab">The producer goes first</span><p>They answer the prompt honestly before anyone else does. That is what gives the room permission.</p></li>
+      <li><span class="lab">Someone speaks</span><p>Nobody is asked to open up. They talk about the song, and it comes out anyway.</p></li>
+      <li><span class="lab">They come back</span><p>Next week there is another song.</p></li>
+    </ul>
+    <div class="pull alt">A clinical group asks how you are doing, and people arm themselves before answering. A song asks nothing.</div>
+    <div class="cite">Listen ahead of time if you want and walk in with something already on your mind. Deep listening, then guided reflection, every week in the same room.</div>
+  </section>
+
+  <!-- 07 -->
+  <section class="slide">
+    <span class="eyebrow">05 · The language</span>
+    <h2>Four words run the whole thing.</h2>
+    <div class="row2">
+      <div><h3>Side A</h3><p>The listen. Together at the top of the meeting, or ahead of time on your own.</p></div>
+      <div><h3>Side B</h3><p>The discussion. The producer answers the prompt first, and answers it honestly.</p></div>
+      <div><h3>Liner notes</h3><p>The workbook. Prompts for every song, with room to write.</p></div>
+      <div><h3>The producer</h3><p>A trained peer who runs the session and goes first. Shapes a record, never performs.</p></div>
+    </div>
+    <div class="pull">Anyone can cite the research. Nobody else owns the method, the words or the training. A format nobody can name is a format nobody can buy twice.</div>
+  </section>
+  <!-- 10 -->
+  <section class="slide">
+    <span class="eyebrow">Mixtape Meetups</span>
+    <h2>Nobody has built <mark>the room.</mark></h2>
+    <p style="margin-top:14px;font-size:15px;font-weight:600;line-height:1.34">We are building it now. The only question is who is in it.</p>
+  </section>
+
+  <div class="grain"></div>
+  <div class="zone l" id="zl"></div>
+  <div class="zone r" id="zr"></div>
+  <div class="num" id="num">01/11</div>
+  <div class="hint">tap →</div>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const ticks=document.getElementById('ticks'), num=document.getElementById('num');
+  slides.forEach(()=>ticks.appendChild(document.createElement('i')));
+  const bars=[...ticks.children];
+  let i=0;
+  const pad=n=>String(n).padStart(2,'0');
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bars.forEach((b,k)=>b.classList.toggle('done',k<=i));
+    num.textContent=pad(i+1)+'/'+pad(slides.length);
+  }
+  document.getElementById('zr').onclick=()=>go(i+1);
+  document.getElementById('zl').onclick=()=>go(i-1);
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(i+1)}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(i-1)}
+  });
+  let x0=null,y0=null;
+  document.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(x0===null)return;
+    const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)) go(dx<0?i+1:i-1);
+    else if(Math.abs(dy)>50) go(dy<0?i+1:i-1);
+    x0=null;
+  },{passive:true});
+  go(0);
+</script>
+</body>
+</html>

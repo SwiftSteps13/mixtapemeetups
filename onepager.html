@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mixtape Meetups</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mixtape Meetups">
+<meta property="og:description" content="A structured, peer-led, song-based recovery format. Nobody has built one. We are.">
+<meta name="twitter:card" content="summary_large">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0B0B0C; --paper:#F3F0E6; --bone:#EDEAE2;
+    --hot:#B49CE8; --volt:#F0D08A; --smoke:#918A9C;
+    --hair:rgba(237,234,226,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{background:var(--void);color:var(--bone);font-family:"Archivo",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+    font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.13;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{max-width:520px;margin:0 auto;padding:0 22px}
+
+  .eyebrow{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:11.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--hot);display:block;margin-bottom:12px}
+  .eyebrow::before{content:"// ";color:#F0D08A}
+  h2{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+    line-height:.95;font-size:clamp(28px,8vw,34px)}
+  h2 mark{background:none;color:var(--hot)}
+  p{margin-bottom:12px}
+  p:last-child{margin-bottom:0}
+  .lede{font-size:17px;font-weight:600;line-height:1.34}
+
+  /* hero */
+  header{padding:44px 22px 40px;max-width:520px;margin:0 auto;position:relative;overflow:hidden}
+  .tape{position:absolute;background:var(--volt)}
+  .t1{width:130px;height:20px;top:22px;left:60%;transform:rotate(-5deg)}
+  .t2{width:80px;height:17px;top:210px;right:-18px;transform:rotate(8deg);background:var(--hot)}
+  .toprow{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:9.5px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--volt);line-height:1.8;position:relative}
+  h1{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;line-height:.94;
+    font-size:clamp(60px,18vw,84px);margin-top:26px;position:relative}
+  h1{color:transparent;-webkit-text-stroke:2px var(--bone)}
+  h1 em{font-style:normal;-webkit-text-stroke:0;color:var(--hot);display:block}
+  .deck{margin-top:18px;font-size:19px;font-weight:600;line-height:1.26;position:relative}
+  .strap{margin-top:26px;padding-top:14px;border-top:1px solid var(--hair);
+    font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--smoke);line-height:1.9;position:relative}
+
+  section{padding:38px 0;border-top:1px solid var(--hair)}
+
+  .cards{display:flex;flex-direction:column;gap:5px;margin-top:16px}
+  .cards>div{background:var(--paper);color:var(--void);padding:13px 15px;
+    box-shadow:3px 5px 0 rgba(0,0,0,.5)}
+  .cards>div:nth-child(even){transform:rotate(.5deg)}
+  .cards>div:nth-child(odd){transform:rotate(-.4deg)}
+  .cards h3{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:16px;line-height:1;margin-bottom:5px}
+  .cards p{font-size:13.6px;line-height:1.42;color:#22201C;margin:0}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:16px}
+  .row2>div{background:var(--paper);color:var(--void);padding:11px 12px;box-shadow:3px 5px 0 rgba(0,0,0,.5)}
+  .row2 h3{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:14px;line-height:1;margin-bottom:4px}
+  .row2 p{font-size:13.6px;line-height:1.42;color:#22201C;margin:0}
+
+  .pull{margin-top:18px;background:var(--paper);color:var(--void);padding:14px 15px;
+    transform:rotate(-.7deg);box-shadow:4px 6px 0 rgba(0,0,0,.55);
+    font-weight:600;font-size:15px;line-height:1.32}
+  .pull.alt{transform:rotate(.8deg);background:#2E1B4F;color:var(--paper)}
+  .cite{margin-top:16px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:12.5px;
+    color:var(--smoke);line-height:1.7;letter-spacing:.03em}
+
+  .hero-n{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-size:76px;line-height:.84;color:var(--volt);margin-top:14px}
+  .hero-l{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:13.5px;line-height:1.7;color:var(--smoke);
+    text-transform:uppercase;letter-spacing:.05em;margin-top:10px}
+  .duo{display:flex;gap:22px;margin-top:18px}
+  .duo b{display:block;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;font-size:32px;line-height:.9;color:var(--volt)}
+  .duo span{display:block;margin-top:6px;font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:12.5px;
+    line-height:1.55;color:var(--smoke);text-transform:uppercase;letter-spacing:.04em}
+
+  .steps{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .steps li{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:baseline}
+  .steps .lab{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:15px;
+    color:var(--volt);line-height:1.12}
+  .steps p{font-size:14px;line-height:1.45;margin:0}
+
+  .mx{display:grid;grid-template-columns:54px 1fr 1fr;gap:4px;margin-top:16px}
+  .mx .hd,.mx .rw{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:11px;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--smoke);line-height:1.3}
+  .mx .hd{align-self:end;padding-bottom:4px}
+  .mx .rw{align-self:center}
+  .mx .cell{background:var(--paper);color:var(--void);padding:10px;box-shadow:3px 4px 0 rgba(0,0,0,.5)}
+  .mx .cell h4{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:13.5px;line-height:1;margin-bottom:4px}
+  .mx .cell p{font-size:12.4px;line-height:1.36;color:#2C2A26;margin:0}
+  .mx .empty{background:var(--volt)}
+
+  .chain{display:flex;flex-direction:column;gap:5px;margin-top:16px}
+  .chain>div{background:var(--paper);color:var(--void);padding:11px 13px;
+    box-shadow:3px 5px 0 rgba(0,0,0,.5);display:grid;grid-template-columns:74px 1fr;gap:10px;align-items:center}
+  .chain>div.ghost{background:none;color:var(--bone);border:1.5px dashed var(--hair);box-shadow:none}
+  .chain .tag{font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-weight:700;font-size:8.5px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--hot)}
+  .chain .ghost .tag{color:var(--smoke)}
+  .chain h4{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-size:15px;line-height:1}
+  .chain small{display:block;margin-top:3px;font-size:11px;line-height:1.3;color:#3A3833}
+  .chain .ghost small{color:var(--smoke)}
+
+  footer{border-top:1px solid var(--hair);padding:34px 0 52px;
+    font-family:"Space Mono",ui-monospace,Menlo,"Courier New",monospace;font-size:10.5px;line-height:1.9;
+    color:var(--smoke);text-transform:uppercase;letter-spacing:.05em}
+  footer b{color:var(--volt);font-weight:700}
+  .disc{margin-top:20px;padding-top:16px;border-top:1px solid var(--hair);
+    font-size:8.2px;line-height:1.7;text-transform:none;letter-spacing:0;opacity:.72}
+
+  .r{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  .r.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.r{opacity:1;transform:none;transition:none}}
+
+  /* iOS */
+  html,body{overscroll-behavior-y:none}
+  body{touch-action:manipulation}
+  header{padding-top:calc(44px + env(safe-area-inset-top))}
+  .wrap{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+
+  @media (min-width:900px) and (pointer:fine){
+    body{font-size:17px}
+    header{max-width:920px;padding:78px 44px 60px}
+    .wrap{max-width:920px;padding:0 44px}
+    h1{font-size:124px}
+    .deck{font-size:29px;max-width:16em;margin-top:24px}
+    .cass{max-width:250px !important}
+    section{padding:58px 0}
+    h2{font-size:50px;max-width:15em}
+    .lede{font-size:22px}
+    .eyebrow{font-size:12.5px;margin-bottom:18px}
+    .cards{flex-direction:row;gap:8px;margin-top:24px}
+    .cards>div{flex:1;padding:18px 20px}
+    .cards h3{font-size:20px;margin-bottom:8px}
+    .cards p{font-size:15px;line-height:1.45}
+    .row2{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:24px}
+    .row2>div{padding:18px 20px}
+    .row2 h3{font-size:19px}
+    .row2 p{font-size:14.5px;line-height:1.45}
+    .pull{font-size:21px;padding:22px 26px;max-width:32em;margin-top:26px}
+    .cite{font-size:13.5px;margin-top:22px;max-width:46em}
+    .hero-n{font-size:124px}
+    .hero-l{font-size:15px;max-width:34em}
+    .duo{gap:52px;margin-top:26px}
+    .duo b{font-size:46px}
+    .duo span{font-size:13px}
+    .steps{margin-top:24px;gap:18px}
+    .steps li{grid-template-columns:200px 1fr;gap:20px}
+    .steps .lab{font-size:21px}
+    .steps p{font-size:17px}
+    .mx{grid-template-columns:120px 1fr 1fr;gap:6px;margin-top:24px}
+    .mx .hd,.mx .rw{font-size:12.5px}
+    .mx .cell{padding:18px 20px}
+    .mx .cell h4{font-size:19px;margin-bottom:7px}
+    .mx .cell p{font-size:14.5px;line-height:1.42}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  
+  
+  <h1>Mixtape<em>Meetups</em></h1>
+  <p class="deck">A structured, peer-led, song-based recovery format. Nobody has built one. We are.</p>
+  <svg class="cass" viewBox="112 8 198 124" aria-hidden="true" style="width:100%;max-width:210px;display:block">
+      <rect x="116" y="14" width="188" height="112" rx="5" fill="none" stroke="var(--bone)" stroke-width="2.2"/>
+      <rect x="130" y="26" width="160" height="42" fill="var(--paper)"/>
+      <line x1="140" y1="40" x2="252" y2="40" stroke="var(--void)" stroke-width="2.4"/>
+      <line x1="140" y1="52" x2="214" y2="52" stroke="var(--void)" stroke-width="2.4" opacity=".55"/>
+      <circle cx="168" cy="94" r="19" fill="none" stroke="#F0D08A" stroke-width="1.8"/>
+      <circle cx="252" cy="94" r="19" fill="none" stroke="#F0D08A" stroke-width="1.8"/>
+      <circle cx="168" cy="94" r="7" fill="var(--hot)"/>
+      <circle cx="252" cy="94" r="7" fill="var(--hot)"/>
+      <line x1="187" y1="94" x2="233" y2="94" stroke="var(--bone)" stroke-width="2"/>
+      <rect x="196" y="112" width="28" height="6" rx="1" fill="none" stroke="var(--bone)" stroke-width="1.4"/>
+    </svg>
+  <div class="strap"></div>
+</header>
+
+<div class="wrap">
+
+  <section class="r">
+    <span class="eyebrow">The premise</span>
+    <h2>From optimization <mark>to feeling.</mark></h2>
+    <p style="margin-top:16px">A world of noise. Dopamine loops. Too much coming at everyone at once. People cannot settle, and another escape does not fix it. What fixes it is a practice you come back to, again and again.</p>
+    <p>Recovery is the only field built entirely around coming back. Same room, same people, every week, for years.</p>
+    <div class="pull">The practice already exists. Nobody has put music at the center of it.</div>
+  </section>
+
+  <section class="r">
+    <span class="eyebrow">01 · Mechanism</span>
+    <h2>Addiction acts on the reward pathway. <mark>So does music.</mark></h2>
+    <div class="cards">
+      <div><h3>Same wiring</h3><p>Music changes activity in the brain's reward system. The same system a drug acts on.</p></div>
+      <div><h3>The blocker</h3><p>Music runs on the body's own opioid system. Block those receptors with naltrexone and people rate their own favorite songs as less pleasurable. Their neutral music barely changes.</p></div>
+      <div><h3>Their song</h3><p>Scans caught dopamine releasing at the exact moment a song gave someone chills. Their own favorite song, not one picked for them.</p></div>
+    </div>
+    <div class="pull">Block the opioid system and the pleasure measurably drops. That is not a metaphor. That is pharmacology.</div>
+    <div class="cite">PMID 27246565 · Salimpoor et al., Nature Neuroscience, 2011<br>The dopamine loop is the problem everyone names. It is also the lever.<br>Mallik, Chanda and Levitin, Scientific Reports, 2017 · Salimpoor et al., Nature Neuroscience, 2011</div>
+  </section>
+
+  <section class="r">
+    <span class="eyebrow">02 · Evidence</span>
+    <h2>Not experimental.</h2>
+    <div class="hero-n">0.41</div>
+    <div class="hero-l">Measured drop in craving, across 3 studies and 254 people. Moderate certainty.</div>
+    <div class="duo">
+      <div><b>+</b><span>More motivation to get help. 5 studies, 408 people.</span></div>
+      <div><b>1–3</b><span>Months of it beats a one-off session.</span></div>
+    </div>
+    <div class="cite">Ghetti et al., Cochrane Database of Systematic Reviews, 2022. Reported as a standardized mean difference. Same review found no clear effect on depression, anxiety or retention.</div>
+  </section>
+  <section class="r">
+    <span class="eyebrow">03 · The landscape</span>
+    <h2>Two variables. <mark>One empty cell.</mark></h2>
+    <div class="mx">
+      <div></div>
+      <div class="hd">Music absent</div>
+      <div class="hd">Music central</div>
+      <div class="rw">Clinician<br>led</div>
+      <div class="cell"><h4>Treatment</h4><p>Rehab and outpatient care. Music is entertainment there, not the method.</p></div>
+      <div class="cell"><h4>Music therapy</h4><p>Nordoff-Robbins, Music Mends Minds. Still run by a trained therapist.</p></div>
+      <div class="rw">Peer<br>led</div>
+      <div class="cell"><h4>Fellowship</h4><p>12-step, SMART, Recovery Dharma. Movie Meetups sits here.</p></div>
+      <div class="cell empty"><h4>Peer-led, music-first</h4><p>Empty. No curriculum, no training, nothing sold.</p></div>
+    </div>
+    <div class="cite">We checked twenty five organizations. The empty box stayed empty. Rock to Recovery is the biggest name here, in more than 100 facilities with a Department of Defense contract, and theirs is about picking up instruments and writing songs. Different product, different budget line.</div>
+  </section>
+
+  <section class="r">
+    <span class="eyebrow">04 · The hour</span>
+    <h2>What a peer-led music hour does.</h2>
+    <ul class="steps">
+      <li><span class="lab">Everyone listens</span><p>The song plays at the top of the meeting. Same song, same room, same hour every week.</p></li>
+      <li><span class="lab">A memory arrives</span><p>It gets there before the defense does.</p></li>
+      <li><span class="lab">The producer goes first</span><p>They answer the prompt honestly before anyone else does. That is what gives the room permission.</p></li>
+      <li><span class="lab">Someone speaks</span><p>Nobody is asked to open up. They talk about the song, and it comes out anyway.</p></li>
+      <li><span class="lab">They come back</span><p>Next week there is another song.</p></li>
+    </ul>
+    <div class="pull alt">A clinical group asks how you are doing, and people arm themselves before answering. A song asks nothing.</div>
+    <div class="cite">Listen ahead of time if you want and walk in with something already on your mind. Deep listening, then guided reflection, every week in the same room.</div>
+  </section>
+
+  <section class="r">
+    <span class="eyebrow">05 · The language</span>
+    <h2>Four words run the whole thing.</h2>
+    <div class="row2">
+      <div><h3>Side A</h3><p>The listen. Together at the top of the meeting, or ahead of time on your own.</p></div>
+      <div><h3>Side B</h3><p>The discussion. The producer answers the prompt first, and answers it honestly.</p></div>
+      <div><h3>Liner notes</h3><p>The workbook. Prompts for every song, with room to write.</p></div>
+      <div><h3>The producer</h3><p>A trained peer who runs the session and goes first. Shapes a record, never performs.</p></div>
+    </div>
+    <div class="pull">Anyone can cite the research. Nobody else owns the method, the words or the training. A format nobody can name is a format nobody can buy twice.</div>
+  </section>
+  <section class="r" style="padding-bottom:60px">
+    <h2>Nobody has built <mark>the room.</mark></h2>
+    <p class="lede" style="margin-top:16px">We are building it now. The only question is who is in it.</p>
+  </section>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.06,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
